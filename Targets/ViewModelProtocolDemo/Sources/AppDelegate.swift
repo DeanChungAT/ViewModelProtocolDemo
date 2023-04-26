@@ -1,0 +1,32 @@
+import UIKit
+import ViewModelProtocolDemoKit
+import ViewModelProtocolDemoUI
+import RxSwift
+
+@main
+class AppDelegate: UIResponder, UIApplicationDelegate {
+
+  var window: UIWindow?
+
+  func application(
+    _ application: UIApplication,
+    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil
+  ) -> Bool {
+    window = UIWindow(frame: UIScreen.main.bounds)
+    let viewController = UIViewController()
+    viewController.view.backgroundColor = .white
+    window?.rootViewController = viewController
+    window?.makeKeyAndVisible()
+    ViewModelProtocolDemoKit.hello()
+    ViewModelProtocolDemoUI.hello()
+
+    Observable.from(["Say", "Hello"])
+      .debug()
+      .subscribe()
+      .disposed(by: disposeBag)
+    return true
+  }
+
+
+  private var disposeBag = DisposeBag()
+}
